@@ -41,10 +41,37 @@ public class AnalLex {
       String nombre = input.substring(start, pos);
       return new Terminal(Type.NUM, nombre);
     } else if (Character.isLetter(current) || current == '_') {
+      if (!Character.isUpperCase(current)) {
+        ErreurLex("Un identifiant doit commencer par une lettre majuscule");
+      }
+
       // Reconnaissance d'un identificateur (lettres, chiffres, underscore)
       int start = pos;
-      while (resteTerminal() && (Character.isLetterOrDigit(input.charAt(pos)) || input.charAt(pos) == '_')) {
-        pos++;
+      pos++;
+
+      boolean prevUnderscore = false;
+
+      //verification des règles pour les _
+      while (resteTerminal()) {
+        char ch = input.charAt(pos);
+
+        if (Character.isLetter(ch)) {
+          prevUnderscore = false;
+          pos++;
+        } else if (ch == '_') {
+          if (prevUnderscore) {
+            ErreurLex("Identifiant invalide : underscore double non permis");
+          }
+          prevUnderscore = true;
+          pos++;
+
+          // underscore ne doit pas être à la fin ou suivi de non-lettre
+          if (!resteTerminal() || !Character.isLetter(input.charAt(pos))) {
+            ErreurLex("Identifiant invalide : underscore final ou sans lettre après");
+          }
+        } else {
+          break;
+        }
       }
       String id = input.substring(start, pos);
       return new Terminal(Type.ID, id);
