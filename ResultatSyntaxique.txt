@@ -1,2 +1,3 @@
-Lecture de l'AST trouvé : (1 + (2 + (3 + 3)))
-Valeur de l'expression : 9
+Lecture de l'AST trouvé : ((X_a + Y_b) * (Z_c / 59))
+Expression postfixée : X_a Y_b + Z_c 59 / *
+Valeur de l'expression : indéterminée (contient des variables)

@@ -39,4 +39,23 @@ public class NoeudAST extends ElemAST {
         return 0;
     }
   }
+
+  @Override
+  public String PostfixAST() {
+    return gauche.PostfixAST() + " " + droite.PostfixAST() + " " + operateur;
+  }
+
+  @Override
+  public String toStringTree(String indent, boolean isLast) {
+    StringBuilder sb = new StringBuilder();
+    sb.append(indent).append(isLast ? "└── " : "├── ").append(operateur).append("\n");
+
+    String newIndent = indent + (isLast ? "    " : "│   ");
+
+    sb.append(gauche.toStringTree(newIndent, false));
+    sb.append(droite.toStringTree(newIndent, true));
+    return sb.toString();
+  }
+
+
 }

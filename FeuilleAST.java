@@ -20,4 +20,16 @@ public class FeuilleAST extends ElemAST {
             return Integer.MIN_VALUE; // ou un autre flag (-1, etc.)
         }
     }
+
+    @Override
+    public String PostfixAST() {
+        return valeur;
+    }
+
+    @Override
+    public String toStringTree(String indent, boolean isLast) {
+        return indent + (isLast ? "└── " : "├── ") + valeur + "\n";
+    }
+
+
 }

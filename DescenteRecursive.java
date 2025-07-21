@@ -64,6 +64,7 @@ public class DescenteRecursive {
       courant = analyseur.prochainTerminal();
       return f;
     } else {
+      //erreur générale
       ErreurSynt("Identifiant, nombre ou parenthèse ouvrante attendu");
     }
     return null;
@@ -84,6 +85,7 @@ public class DescenteRecursive {
 
     int val = dr.RacineAST.EvalAST();
     toWrite += "Lecture de l'AST trouvé : " + dr.RacineAST.LectAST() + "\n";
+    toWrite += "Expression postfixée : " + dr.RacineAST.PostfixAST() + "\n";
 
     if (val == Integer.MIN_VALUE) {
       toWrite += "Valeur de l'expression : indéterminée (contient des variables)\n";
@@ -91,7 +93,10 @@ public class DescenteRecursive {
       toWrite += "Valeur de l'expression : " + val + "\n";
     }
 
+
     System.out.println(toWrite);
+    System.out.println("AST hiérarchique :\n" + dr.RacineAST.toStringTree());
+
     Writer w = new Writer(args[1], toWrite);
     System.out.println("Fin d'analyse syntaxique");
   }
