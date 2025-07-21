@@ -1,0 +1,30 @@
+package app6;
+
+public class NoeudAST extends ElemAST {
+  private String operateur;
+  private ElemAST gauche;
+  private ElemAST droite;
+
+  public NoeudAST(String operateur, ElemAST gauche, ElemAST droite) {
+    this.operateur = operateur;
+    this.gauche = gauche;
+    this.droite = droite;
+  }
+
+  @Override
+  public String LectAST() {
+    return "(" + gauche.LectAST() + " " + operateur + " " + droite.LectAST() + ")";
+  }
+
+  @Override
+  public int EvalAST() {
+    int g = gauche.EvalAST();
+    int d = droite.EvalAST();
+    if (operateur.equals("+")) {
+      return g + d;
+    } else {
+      ErreurEvalAST("Opérateur non supporté : " + operateur);
+      return 0;
+    }
+  }
+}
