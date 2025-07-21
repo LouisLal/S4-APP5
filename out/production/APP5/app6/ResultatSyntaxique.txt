@@ -1,0 +1,2 @@
+Lecture de l'AST trouvé : (15 + (10 * 12))
+Valeur de l'expression : 135

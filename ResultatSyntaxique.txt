@@ -1,2 +1,2 @@
-Lecture de l'AST trouvé : ((001 + 10111) + 110100)
-Valeur de l'expression : 120212
+Lecture de l'AST trouvé : ((15 + ((10 * 12) / 5)) + 3)
+Valeur de l'expression : 42

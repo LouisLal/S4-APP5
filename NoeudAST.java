@@ -20,11 +20,18 @@ public class NoeudAST extends ElemAST {
   public int EvalAST() {
     int g = gauche.EvalAST();
     int d = droite.EvalAST();
-    if (operateur.equals("+")) {
-      return g + d;
-    } else {
-      ErreurEvalAST("Opérateur non supporté : " + operateur);
-      return 0;
+    switch (operateur) {
+      case "+":
+        return g + d;
+      case "-":
+        return g - d;
+      case "*":
+        return g * d;
+      case "/":
+        return g / d;
+      default:
+        ErreurEvalAST("Opérateur non supporté : " + operateur);
+        return 0;
     }
   }
 }
