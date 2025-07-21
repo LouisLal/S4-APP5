@@ -26,40 +26,27 @@ public class DescenteRecursive {
   // E  → T E'
   private ElemAST E() {
     ElemAST gauche = T();
-    return Ep(gauche);
-  }
-
-  // E' → + T E' | - T E' | ε
-  private ElemAST Ep(ElemAST gauche) {
     if (courant.type == Type.PLUS || courant.type == Type.MOINS) {
       String op = courant.chaine;
       courant = analyseur.prochainTerminal();
-      ElemAST droit = T();
-      NoeudAST noeud = new NoeudAST(op, gauche, droit);
-      return Ep(noeud);
-    } else {
-      return gauche;
+      ElemAST droit = E();  // récursion à droite
+      return new NoeudAST(op, gauche, droit);
     }
+    return gauche;
   }
 
   // T  → F T'
   private ElemAST T() {
     ElemAST gauche = F();
-    return Tp(gauche);
-  }
-
-  // T' → * F T' | / F T' | ε
-  private ElemAST Tp(ElemAST gauche) {
     if (courant.type == Type.MULT || courant.type == Type.DIV) {
       String op = courant.chaine;
       courant = analyseur.prochainTerminal();
-      ElemAST droit = F();
-      NoeudAST noeud = new NoeudAST(op, gauche, droit);
-      return Tp(noeud);
-    } else {
-      return gauche;
+      ElemAST droit = T();  // récursion à droite
+      return new NoeudAST(op, gauche, droit);
     }
+    return gauche;
   }
+
 
   // F → (E) | ID | NUM
   private ElemAST F() {
@@ -95,8 +82,14 @@ public class DescenteRecursive {
     DescenteRecursive dr = new DescenteRecursive(args[0]);
     dr.AnalSynt();
 
+    int val = dr.RacineAST.EvalAST();
     toWrite += "Lecture de l'AST trouvé : " + dr.RacineAST.LectAST() + "\n";
-    toWrite += "Valeur de l'expression : " + dr.RacineAST.EvalAST() + "\n";
+
+    if (val == Integer.MIN_VALUE) {
+      toWrite += "Valeur de l'expression : indéterminée (contient des variables)\n";
+    } else {
+      toWrite += "Valeur de l'expression : " + val + "\n";
+    }
 
     System.out.println(toWrite);
     Writer w = new Writer(args[1], toWrite);

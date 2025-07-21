@@ -1,2 +1,2 @@
-Lecture de l'AST trouvé : ((15 + ((10 * 12) / 5)) + 3)
-Valeur de l'expression : 42
+Lecture de l'AST trouvé : (((1 + 2) + 3) + 3)
+Valeur de l'expression : 9

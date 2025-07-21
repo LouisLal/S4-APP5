@@ -17,8 +17,7 @@ public class FeuilleAST extends ElemAST {
         try {
             return Integer.parseInt(valeur);
         } catch (NumberFormatException e) {
-            ErreurEvalAST("Impossible d’évaluer une variable non définie : " + valeur);
-            return 0;
+            return Integer.MIN_VALUE; // ou un autre flag (-1, etc.)
         }
     }
 }

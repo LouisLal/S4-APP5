@@ -20,6 +20,11 @@ public class NoeudAST extends ElemAST {
   public int EvalAST() {
     int g = gauche.EvalAST();
     int d = droite.EvalAST();
+
+    if (g == Integer.MIN_VALUE || d == Integer.MIN_VALUE) {
+      return Integer.MIN_VALUE;
+    }
+
     switch (operateur) {
       case "+":
         return g + d;
