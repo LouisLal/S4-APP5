@@ -12,8 +12,8 @@ public class AnalLex {
   }
 
   public void ErreurLex(String msg) {
-    System.err.println("Erreur lexicale à pos " + pos + " : " + msg);
-    System.exit(1);
+    // Instead of exiting, throw a runtime exception to be caught in main
+    throw new RuntimeException("Erreur lexicale à pos " + pos + " : " + msg);
   }
 
   public boolean resteTerminal() {
@@ -100,13 +100,39 @@ public class AnalLex {
       args[0] = "ExpArith.txt";
       args[1] = "ResultatLexical.txt";
     }
-    Reader r = new Reader(args[0]);
-    AnalLex lexical = new AnalLex(r.toString());
+    // Read all lines from the input file
+    java.util.List<String> lines = new java.util.ArrayList<>();
+    try {
+      java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(args[0]));
+      String line;
+      while ((line = br.readLine()) != null) {
+        if (!line.trim().isEmpty()) {
+          lines.add(line.trim());
+        }
+      }
+      br.close();
+    } catch (Exception e) {
+      System.out.println("Erreur lors de la lecture du fichier d'entrée: " + e);
+      e.printStackTrace();
+      System.exit(1);
+    }
 
-    Terminal t = null;
-    while (lexical.resteTerminal()) {
-      t = lexical.prochainTerminal();
-      toWrite += t.chaine + "\n";
+    int testNum = 1;
+    for (String expr : lines) {
+      toWrite += "===== Test case " + testNum + " =====\n";
+      toWrite += "Expression: " + expr + "\n";
+      try {
+        AnalLex lexical = new AnalLex(expr);
+        Terminal t = null;
+        while (lexical.resteTerminal()) {
+          t = lexical.prochainTerminal();
+          toWrite += t.chaine + "\n";
+        }
+      } catch (Exception ex) {
+        toWrite += "Erreur lors de l'analyse lexicale: " + ex.getMessage() + "\n";
+      }
+      toWrite += "\n";
+      testNum++;
     }
 
     System.out.println(toWrite);

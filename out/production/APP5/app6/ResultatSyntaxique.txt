@@ -1,3 +1,48 @@
+===== Test case 1 =====
+Expression: (X_a + Y_b) * Z_c / 59
 Lecture de l'AST trouvé : ((X_a + Y_b) * (Z_c / 59))
 Expression postfixée : X_a Y_b + Z_c 59 / *
 Valeur de l'expression : indéterminée (contient des variables)
+AST hiérarchique :
+└── *
+    ├── +
+    │   ├── X_a
+    │   └── Y_b
+    └── /
+        ├── Z_c
+        └── 59
+
+
+===== Test case 2 =====
+Expression: 1 + 1
+Lecture de l'AST trouvé : (1 + 1)
+Expression postfixée : 1 1 +
+Valeur de l'expression : 2
+AST hiérarchique :
+└── +
+    ├── 1
+    └── 1
+
+
+===== Test case 3 =====
+Expression: 0 + 1
+Lecture de l'AST trouvé : (0 + 1)
+Expression postfixée : 0 1 +
+Valeur de l'expression : 1
+AST hiérarchique :
+└── +
+    ├── 0
+    └── 1
+
+
+===== Test case 4 =====
+Expression: 1010/10
+Lecture de l'AST trouvé : (1010 / 10)
+Expression postfixée : 1010 10 /
+Valeur de l'expression : 101
+AST hiérarchique :
+└── /
+    ├── 1010
+    └── 10
+
+

@@ -11,6 +11,12 @@ public class DescenteRecursive {
     courant = analyseur.prochainTerminal();
   }
 
+  // Add a new constructor to accept a string expression directly
+  public DescenteRecursive(String expression, boolean isExpression) {
+    analyseur = new AnalLex(expression);
+    courant = analyseur.prochainTerminal();
+  }
+
   public void ErreurSynt(String msg) {
     System.err.println("Erreur syntaxique : " + msg + " à : " + courant.chaine);
     System.exit(1);
@@ -80,23 +86,47 @@ public class DescenteRecursive {
       args[1] = "ResultatSyntaxique.txt";
     }
 
-    DescenteRecursive dr = new DescenteRecursive(args[0]);
-    dr.AnalSynt();
-
-    int val = dr.RacineAST.EvalAST();
-    toWrite += "Lecture de l'AST trouvé : " + dr.RacineAST.LectAST() + "\n";
-    toWrite += "Expression postfixée : " + dr.RacineAST.PostfixAST() + "\n";
-
-    if (val == Integer.MIN_VALUE) {
-      toWrite += "Valeur de l'expression : indéterminée (contient des variables)\n";
-    } else {
-      toWrite += "Valeur de l'expression : " + val + "\n";
+    // Read all lines from the input file
+    java.util.List<String> lines = new java.util.ArrayList<>();
+    try {
+      java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(args[0]));
+      String line;
+      while ((line = br.readLine()) != null) {
+        if (!line.trim().isEmpty()) {
+          lines.add(line.trim());
+        }
+      }
+      br.close();
+    } catch (Exception e) {
+      System.out.println("Erreur lors de la lecture du fichier d'entrée: " + e);
+      e.printStackTrace();
+      System.exit(1);
     }
 
+    int testNum = 1;
+    for (String expr : lines) {
+      toWrite += "===== Test case " + testNum + " =====\n";
+      toWrite += "Expression: " + expr + "\n";
+      try {
+        DescenteRecursive dr = new DescenteRecursive(expr, true);
+        dr.AnalSynt();
+        int val = dr.RacineAST.EvalAST();
+        toWrite += "Lecture de l'AST trouvé : " + dr.RacineAST.LectAST() + "\n";
+        toWrite += "Expression postfixée : " + dr.RacineAST.PostfixAST() + "\n";
+        if (val == Integer.MIN_VALUE) {
+          toWrite += "Valeur de l'expression : indéterminée (contient des variables)\n";
+        } else {
+          toWrite += "Valeur de l'expression : " + val + "\n";
+        }
+        toWrite += "AST hiérarchique :\n" + dr.RacineAST.toStringTree() + "\n";
+      } catch (Exception ex) {
+        toWrite += "Erreur lors de l'analyse de l'expression: " + ex.getMessage() + "\n";
+      }
+      toWrite += "\n";
+      testNum++;
+    }
 
     System.out.println(toWrite);
-    System.out.println("AST hiérarchique :\n" + dr.RacineAST.toStringTree());
-
     Writer w = new Writer(args[1], toWrite);
     System.out.println("Fin d'analyse syntaxique");
   }

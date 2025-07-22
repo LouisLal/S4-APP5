@@ -1,3 +1,5 @@
+===== Test case 1 =====
+Expression: (X_a + Y_b) * Z_c / 59
 (
 X_a
 +
@@ -7,3 +9,38 @@ Y_b
 Z_c
 /
 59
+
+===== Test case 2 =====
+Expression: 1 + 1
+1
++
+1
+
+===== Test case 3 =====
+Expression: 0 - 1
+0
+-
+1
+
+===== Test case 4 =====
+Expression: 1010/10
+1010
+/
+10
+
+===== Test case 5 =====
+Expression: X__
+Erreur lors de l'analyse lexicale: Erreur lexicale à pos 2 : Identifiant invalide : underscore final ou sans lettre après
+
+===== Test case 6 =====
+Expression: X_
+Erreur lors de l'analyse lexicale: Erreur lexicale à pos 2 : Identifiant invalide : underscore final ou sans lettre après
+
+===== Test case 7 =====
+Expression: a
+Erreur lors de l'analyse lexicale: Erreur lexicale à pos 0 : Un identifiant doit commencer par une lettre majuscule
+
+===== Test case 8 =====
+Expression: a_b
+Erreur lors de l'analyse lexicale: Erreur lexicale à pos 0 : Un identifiant doit commencer par une lettre majuscule
+
