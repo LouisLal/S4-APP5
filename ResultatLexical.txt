@@ -1,35 +1,35 @@
 ===== Test case 1 =====
 Expression: (X_a + Y_b) * Z_c / 59
-(
-X_a
-+
-Y_b
-)
-*
-Z_c
-/
-59
+PARENTHESE_G : (
+IDENTIFICATION : X_a
+PLUS : +
+IDENTIFICATION : Y_b
+PARENTHESE_D : )
+MULTIPLICATION : *
+IDENTIFICATION : Z_c
+DIVISION : /
+NOMBRE : 59
 
 ===== Test case 2 =====
 Expression: 1 + 1
-1
-+
-1
+NOMBRE : 1
+PLUS : +
+NOMBRE : 1
 
 ===== Test case 3 =====
 Expression: 0 - 1
-0
--
-1
+NOMBRE : 0
+MOINS : -
+NOMBRE : 1
 
 ===== Test case 4 =====
 Expression: 1010/10
-1010
-/
-10
+NOMBRE : 1010
+DIVISION : /
+NOMBRE : 10
 
 ===== Test case 5 =====
-Expression: X__
+Expression: X__a
 Erreur lors de l'analyse lexicale: Erreur lexicale à pos 2 : Identifiant invalide : underscore final ou sans lettre après
 
 ===== Test case 6 =====
@@ -43,4 +43,9 @@ Erreur lors de l'analyse lexicale: Erreur lexicale à pos 0 : Un identifiant doi
 ===== Test case 8 =====
 Expression: a_b
 Erreur lors de l'analyse lexicale: Erreur lexicale à pos 0 : Un identifiant doit commencer par une lettre majuscule
+
+===== Test case 9 =====
+Expression: 2 ^ 3
+NOMBRE : 2
+Erreur lors de l'analyse lexicale: Erreur lexicale à pos 3 : Caractère non reconnu: '^'
 

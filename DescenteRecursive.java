@@ -44,7 +44,7 @@ public class DescenteRecursive {
   // T  → F T'
   private ElemAST T() {
     ElemAST gauche = F();
-    if (courant.type == Type.MULT || courant.type == Type.DIV) {
+    if (courant.type == Type.MULTIPLICATION || courant.type == Type.DIVISION) {
       String op = courant.chaine;
       courant = analyseur.prochainTerminal();
       ElemAST droit = T();  // récursion à droite
@@ -56,16 +56,16 @@ public class DescenteRecursive {
 
   // F → (E) | ID | NUM
   private ElemAST F() {
-    if (courant.type == Type.PARENG) {
+    if (courant.type == Type.PARENTHESE_G) {
       courant = analyseur.prochainTerminal();
       ElemAST e = E();
-      if (courant.type == Type.PAREND) {
+      if (courant.type == Type.PARENTHESE_D) {
         courant = analyseur.prochainTerminal();
         return e;
       } else {
         ErreurSynt("Parenthèse fermante attendue");
       }
-    } else if (courant.type == Type.ID || courant.type == Type.NUM) {
+    } else if (courant.type == Type.IDENTIFICATION || courant.type == Type.NOMBRE) {
       ElemAST f = new FeuilleAST(courant.chaine);
       courant = analyseur.prochainTerminal();
       return f;

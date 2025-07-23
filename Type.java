@@ -1,13 +1,13 @@
 package app6;
 
 public enum Type {
-    NUM,       // nombre entier (ex: 123)
-    ID,        // identificateur (ex: X_a)
+    NOMBRE,       // nombre entier (ex: 123)
+    IDENTIFICATION,        // identificateur (ex: X_a)
     PLUS,      // +
     MOINS,     // -
-    MULT,      // *
-    DIV,       // /
-    PARENG,    // (
-    PAREND,    // )
+    MULTIPLICATION,      // *
+    DIVISION,       // /
+    PARENTHESE_G,    // (
+    PARENTHESE_D,    // )
     EOF        // fin de fichier
 }

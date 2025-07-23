@@ -47,7 +47,7 @@ AST hiérarchique :
 
 
 ===== Test case 5 =====
-Expression: X__
+Expression: X__a
 Erreur lors de l'analyse de l'expression: Erreur lexicale à pos 2 : Identifiant invalide : underscore final ou sans lettre après
 
 ===== Test case 6 =====
@@ -61,4 +61,8 @@ Erreur lors de l'analyse de l'expression: Erreur lexicale à pos 0 : Un identifi
 ===== Test case 8 =====
 Expression: a_b
 Erreur lors de l'analyse de l'expression: Erreur lexicale à pos 0 : Un identifiant doit commencer par une lettre majuscule
+
+===== Test case 9 =====
+Expression: 2 ^ 3
+Erreur lors de l'analyse de l'expression: Erreur lexicale à pos 3 : Caractère non reconnu: '^'
 

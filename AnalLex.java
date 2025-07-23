@@ -39,7 +39,7 @@ public class AnalLex {
         pos++;
       }
       String nombre = input.substring(start, pos);
-      return new Terminal(Type.NUM, nombre);
+      return new Terminal(Type.NOMBRE, nombre);
     } else if (Character.isLetter(current) || current == '_') {
       if (!Character.isUpperCase(current)) {
         ErreurLex("Un identifiant doit commencer par une lettre majuscule");
@@ -74,17 +74,17 @@ public class AnalLex {
         }
       }
       String id = input.substring(start, pos);
-      return new Terminal(Type.ID, id);
+      return new Terminal(Type.IDENTIFICATION, id);
     } else {
       // Reconnaissance des opérateurs et parenthèses
       pos++;
       switch (current) {
         case '+': return new Terminal(Type.PLUS, "+");
         case '-': return new Terminal(Type.MOINS, "-");
-        case '*': return new Terminal(Type.MULT, "*");
-        case '/': return new Terminal(Type.DIV, "/");
-        case '(': return new Terminal(Type.PARENG, "(");
-        case ')': return new Terminal(Type.PAREND, ")");
+        case '*': return new Terminal(Type.MULTIPLICATION, "*");
+        case '/': return new Terminal(Type.DIVISION, "/");
+        case '(': return new Terminal(Type.PARENTHESE_G, "(");
+        case ')': return new Terminal(Type.PARENTHESE_D, ")");
         default:
           ErreurLex("Caractère non reconnu: '" + current + "'");
           return null; // jamais atteint
@@ -126,7 +126,7 @@ public class AnalLex {
         Terminal t = null;
         while (lexical.resteTerminal()) {
           t = lexical.prochainTerminal();
-          toWrite += t.chaine + "\n";
+          toWrite += t.type.toString() + " : " + t.chaine + "\n";
         }
       } catch (Exception ex) {
         toWrite += "Erreur lors de l'analyse lexicale: " + ex.getMessage() + "\n";
